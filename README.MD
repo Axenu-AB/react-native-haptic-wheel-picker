@@ -1,0 +1,1 @@
+React native wheel picker for Android/IOS with haptic feedback when scrolling.
