@@ -1,5 +1,5 @@
 {
-  "name": "react-native-scrolling-wheel-picker",
+  "name": "react-native-haptic-wheel-picker",
   "version": "1.0.0",
   "description": "A react-native animated scroll wheel picker for IOS/Android",
   "scripts": {
