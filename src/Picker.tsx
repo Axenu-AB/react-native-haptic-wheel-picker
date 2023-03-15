@@ -37,26 +37,26 @@ interface PickerProps<T> {
   itemHeight?: number;
   itemDistanceMultipier?: number;
   wheelHeightMultiplier?: number;
-};
+}
 
 type AnimatedGHContext = {
   startY: number;
 };
 
-const Picker = <T,>(
-  {
-    options,defaultValue,
-    onValueChange,
-    textStyle,
-    renderItem,
-    keyExtractor,
-    itemHeight=ITEM_HEIGHT,
-    itemDistanceMultipier=ITEM_DISTANCE,
-    wheelHeightMultiplier=WHEEL_HEIGHT_MULTIPLIER
-  }: PickerProps<T>) => {
+const Picker = <T,>({
+  options,
+  defaultValue,
+  onValueChange,
+  textStyle,
+  renderItem,
+  keyExtractor,
+  itemHeight = ITEM_HEIGHT,
+  itemDistanceMultipier = ITEM_DISTANCE,
+  wheelHeightMultiplier = WHEEL_HEIGHT_MULTIPLIER,
+}: PickerProps<T>) => {
   let index = options.findIndex((item) => item === defaultValue);
   index = index === -1 ? 0 : index;
-  
+
   const optionsIndex = useSharedValue(index);
   const translateY = useSharedValue(optionsIndex.value * -itemHeight);
   const lastIndexY = useSharedValue(index * -itemHeight);
@@ -112,16 +112,16 @@ const Picker = <T,>(
         <View style={style.picker__offset}>
           {options.map((item, listIndex) => (
             <PickerItem
-            key={keyExtractor ? keyExtractor(item) : listIndex}
-            item={item}
-            index={listIndex}
-            translateY={translateY}
-            itemHeight={ITEM_HEIGHT}
-            textStyle={textStyle}
-            renderItem={renderItem}
-            itemDistanceMultipier={itemDistanceMultipier}
-            wheelHeightMultiplier={wheelHeightMultiplier}
-          />
+              key={keyExtractor ? keyExtractor(item) : listIndex}
+              item={item}
+              index={listIndex}
+              translateY={translateY}
+              itemHeight={ITEM_HEIGHT}
+              textStyle={textStyle}
+              renderItem={renderItem}
+              itemDistanceMultipier={itemDistanceMultipier}
+              wheelHeightMultiplier={wheelHeightMultiplier}
+            />
           ))}
           <View style={style.selector} />
         </View>
@@ -130,21 +130,30 @@ const Picker = <T,>(
   );
 };
 
-const style =
-  StyleSheet.create({
-    picker: {
-      flexDirection: 'column',
-      height: ITEM_HEIGHT * 5,
-    },
-    picker__offset: {
-      top: ITEM_HEIGHT * 2,
-    },
-    selector: {
-      borderBottomWidth: 1,
-      borderColor: 'white',
-      borderTopWidth: 1,
-      height: ITEM_HEIGHT,
-    },
-  });
+Picker.defaultProps = {
+  defaultValue: undefined,
+  keyExtractor: undefined,
+  renderItem: undefined,
+  textStyle: undefined,
+  itemHeight: ITEM_HEIGHT,
+  itemDistanceMultipier: ITEM_DISTANCE,
+  wheelHeightMultiplier: WHEEL_HEIGHT_MULTIPLIER,
+};
+
+const style = StyleSheet.create({
+  picker: {
+    flexDirection: 'column',
+    height: ITEM_HEIGHT * 5,
+  },
+  picker__offset: {
+    top: ITEM_HEIGHT * 2,
+  },
+  selector: {
+    borderBottomWidth: 1,
+    borderColor: 'white',
+    borderTopWidth: 1,
+    height: ITEM_HEIGHT,
+  },
+});
 
 export default Picker;

@@ -14,9 +14,14 @@ interface PickerItemProps<T> {
   renderItem?: (item: T) => JSX.Element;
   itemDistanceMultipier: number;
   wheelHeightMultiplier: number;
-};
+}
 
-const calcValue = (translateY: number, offset: number, itemHeight: number, itemDistanceMultipier: number) => {
+const calcValue = (
+  translateY: number,
+  offset: number,
+  itemHeight: number,
+  itemDistanceMultipier: number,
+) => {
   'worklet';
 
   return Math.sin(
@@ -31,15 +36,15 @@ const calcValue = (translateY: number, offset: number, itemHeight: number, itemD
 };
 
 const PickerItem = <T,>({
-    item,
-    index,
-    translateY,
-    itemHeight,
-    textStyle,
-    renderItem,
-    itemDistanceMultipier,
-    wheelHeightMultiplier
-  }: PickerItemProps<T>) => {
+  item,
+  index,
+  translateY,
+  itemHeight,
+  textStyle,
+  renderItem,
+  itemDistanceMultipier,
+  wheelHeightMultiplier,
+}: PickerItemProps<T>) => {
   const [width, setWidth] = useState(0);
   const offset = index * itemHeight;
   const value = useDerivedValue(() =>
@@ -80,11 +85,16 @@ const PickerItem = <T,>({
         {renderItem ? (
           renderItem(item)
         ) : (
-        <Text style={[styles.itemText, textStyle]}>{`${item}`}</Text>
+          <Text style={[styles.itemText, textStyle]}>{`${item}`}</Text>
         )}
       </Animated.View>
     </Animated.View>
   );
+};
+
+PickerItem.defaultProps = {
+  renderItem: undefined,
+  textStyle: undefined,
 };
 
 const styles = StyleSheet.create({

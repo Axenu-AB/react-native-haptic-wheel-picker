@@ -46,27 +46,12 @@ module.exports = {
       },
     ],
   },
-  ignorePatterns: ["*.js"],
+  ignorePatterns: ['*.js'],
   extends: [
     'plugin:@typescript-eslint/recommended',
     'airbnb',
     'airbnb-typescript',
+    'plugin:prettier/recommended',
   ],
   root: true,
-  overrides: [
-    {
-      files: ['*.js'],
-      rules: {
-        'global-require': 'off',
-        'react/no-array-index-key': 'off',
-        'no-param-reassign': 'off',
-        'no-irregular-whitespace': 'off',
-        '@typescript-eslint/no-unused-expressions': 'off',
-        'react/no-unstable-nested-components': 'off',
-        'react/destructuring-assignment': 'off',
-        'no-underscore-dangle': 'off',
-        'no-nested-ternary': 'off',
-      },
-    },
-  ],
 };
