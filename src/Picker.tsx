@@ -29,8 +29,8 @@ export const SPRING_CONFIG = {
 
 interface PickerProps<T> {
   data: T[];
-  defaultValue?: T;
-  onValueChange?: (Value: T) => void;
+  defaultItem?: T;
+  onItemSelect?: (Value: T) => void;
   textStyle?: TextStyle;
   renderItem?: (item: T) => JSX.Element;
   keyExtractor?: (item: T) => string;
@@ -46,8 +46,8 @@ type AnimatedGHContext = {
 
 /** Picker component
  * @param data - list of items to be displayed
- * @param defaultValue - default value to be selected
- * @param onValueChange - callback function to be called when value changes
+ * @param defaultItem - default item to be selected
+ * @param onItemSelect - callback function to be called when an item is selected
  * @param textStyle - style for text
  * @param renderItem - custom render function for item
  * @param keyExtractor - custom key extractor function
@@ -57,8 +57,8 @@ type AnimatedGHContext = {
  */
 const Picker = <T,>({
   data,
-  defaultValue,
-  onValueChange,
+  defaultItem,
+  onItemSelect,
   textStyle,
   renderItem,
   keyExtractor,
@@ -67,7 +67,7 @@ const Picker = <T,>({
   wheelHeightMultiplier = WHEEL_HEIGHT_MULTIPLIER,
   selectorStyle,
 }: PickerProps<T>) => {
-  let index = data.findIndex((item) => item === defaultValue);
+  let index = data.findIndex((item) => item === defaultItem);
   index = index === -1 ? 0 : index;
 
   const optionsIndex = useSharedValue(index);
@@ -106,8 +106,8 @@ const Picker = <T,>({
           clamp: [maximum, 0],
         },
         () => {
-          if (onValueChange) {
-            runOnJS(onValueChange)(
+          if (onItemSelect) {
+            runOnJS(onItemSelect)(
               data[Math.round(translateY.value / -itemHeight)],
             );
           }
@@ -146,8 +146,8 @@ const Picker = <T,>({
 };
 
 Picker.defaultProps = {
-  defaultValue: undefined,
-  onValueChange: undefined,
+  defaultItem: undefined,
+  onItemSelect: undefined,
   keyExtractor: undefined,
   renderItem: undefined,
   textStyle: undefined,
