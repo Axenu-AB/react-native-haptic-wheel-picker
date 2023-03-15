@@ -13,6 +13,11 @@ jobs:
     steps:
       - name: Check out git repo
         uses: actions/checkout@v2
+        
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
       
       - name: Install deps
         run: npm ci
@@ -21,6 +26,6 @@ jobs:
         run: npm run build
 
       - name: Publish package on NPM 📦
-        run: npm publish
+        run: npm publish -access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
