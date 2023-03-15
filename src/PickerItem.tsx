@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   itemText: {
+    color: 'white',
     paddingHorizontal: 16,
     textAlign: 'center',
   },

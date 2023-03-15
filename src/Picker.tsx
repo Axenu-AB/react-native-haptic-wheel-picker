@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, TextStyle, View} from 'react-native';
+import {StyleSheet, TextStyle, View, ViewStyle} from 'react-native';
 import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
@@ -28,23 +28,35 @@ export const SPRING_CONFIG = {
 };
 
 interface PickerProps<T> {
-  options: T[];
+  data: T[];
   defaultValue?: T;
-  onValueChange: (Value: T) => void;
+  onValueChange?: (Value: T) => void;
   textStyle?: TextStyle;
   renderItem?: (item: T) => JSX.Element;
   keyExtractor?: (item: T) => string;
   itemHeight?: number;
   itemDistanceMultipier?: number;
   wheelHeightMultiplier?: number;
+  selectorStyle?: ViewStyle;
 }
 
 type AnimatedGHContext = {
   startY: number;
 };
 
+/** Picker component
+ * @param data - list of items to be displayed
+ * @param defaultValue - default value to be selected
+ * @param onValueChange - callback function to be called when value changes
+ * @param textStyle - style for text
+ * @param renderItem - custom render function for item
+ * @param keyExtractor - custom key extractor function
+ * @param itemHeight - height of each item(default: 40)
+ * @param itemDistanceMultipier - multiplier for distance between items(default: 0.285)
+ * @param wheelHeightMultiplier - multiplier for wheel height(default: 2.6)
+ */
 const Picker = <T,>({
-  options,
+  data,
   defaultValue,
   onValueChange,
   textStyle,
@@ -53,14 +65,15 @@ const Picker = <T,>({
   itemHeight = ITEM_HEIGHT,
   itemDistanceMultipier = ITEM_DISTANCE,
   wheelHeightMultiplier = WHEEL_HEIGHT_MULTIPLIER,
+  selectorStyle,
 }: PickerProps<T>) => {
-  let index = options.findIndex((item) => item === defaultValue);
+  let index = data.findIndex((item) => item === defaultValue);
   index = index === -1 ? 0 : index;
 
   const optionsIndex = useSharedValue(index);
   const translateY = useSharedValue(optionsIndex.value * -itemHeight);
   const lastIndexY = useSharedValue(index * -itemHeight);
-  const maximum = (options.length - 1) * -itemHeight;
+  const maximum = (data.length - 1) * -itemHeight;
 
   const gestureHandler = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
@@ -93,9 +106,11 @@ const Picker = <T,>({
           clamp: [maximum, 0],
         },
         () => {
-          runOnJS(onValueChange)(
-            options[Math.round(translateY.value / -itemHeight)],
-          );
+          if (onValueChange) {
+            runOnJS(onValueChange)(
+              data[Math.round(translateY.value / -itemHeight)],
+            );
+          }
           optionsIndex.value = Math.round(translateY.value / -itemHeight);
           translateY.value = withSpring(
             optionsIndex.value * -itemHeight,
@@ -110,7 +125,7 @@ const Picker = <T,>({
     <PanGestureHandler onGestureEvent={gestureHandler}>
       <Animated.View style={style.picker}>
         <View style={style.picker__offset}>
-          {options.map((item, listIndex) => (
+          {data.map((item, listIndex) => (
             <PickerItem
               key={keyExtractor ? keyExtractor(item) : listIndex}
               item={item}
@@ -123,7 +138,7 @@ const Picker = <T,>({
               wheelHeightMultiplier={wheelHeightMultiplier}
             />
           ))}
-          <View style={style.selector} />
+          <View style={[style.selector, selectorStyle]} />
         </View>
       </Animated.View>
     </PanGestureHandler>
@@ -132,12 +147,14 @@ const Picker = <T,>({
 
 Picker.defaultProps = {
   defaultValue: undefined,
+  onValueChange: undefined,
   keyExtractor: undefined,
   renderItem: undefined,
   textStyle: undefined,
   itemHeight: ITEM_HEIGHT,
   itemDistanceMultipier: ITEM_DISTANCE,
   wheelHeightMultiplier: WHEEL_HEIGHT_MULTIPLIER,
+  selectorStyle: undefined,
 };
 
 const style = StyleSheet.create({
