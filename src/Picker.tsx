@@ -28,15 +28,52 @@ export const SPRING_CONFIG = {
 };
 
 interface PickerProps<T> {
+  /**
+   * list of items to be displayed
+   */
   data: T[];
+  /**
+   * default item to be selected
+   * @default data[0]
+   */
   defaultItem?: T;
+  /**
+   * callback function to be called when item changes
+   */
   onItemSelect?: (Value: T) => void;
+  /**
+   * style for text
+   * @default {color: 'white', paddingHorizontal: 16, textAlign: 'center'}
+   */
   textStyle?: TextStyle;
+  /**
+   * custom render function for item
+   * @default (item) => <Text>{item}</Text>
+   */
   renderItem?: (item: T) => JSX.Element;
+  /**
+   * custom key extractor function
+   */
   keyExtractor?: (item: T) => string;
+  /**
+   * height of each item
+   * @default 40
+   */
   itemHeight?: number;
+  /**
+   * multiplier for distance between items
+   * @default 0.285
+   */
   itemDistanceMultipier?: number;
+  /**
+   * multiplier for wheel height
+   * @default 2.6
+   */
   wheelHeightMultiplier?: number;
+  /**
+   * style for selector lines
+   * @default {borderBottomWidth: 1, borderTopWidth: 1, borderColor: 'black'}
+   */
   selectorStyle?: ViewStyle;
 }
 
@@ -44,17 +81,6 @@ type AnimatedGHContext = {
   startY: number;
 };
 
-/** Picker component
- * @param data - list of items to be displayed
- * @param defaultItem - default item to be selected
- * @param onItemSelect - callback function to be called when an item is selected
- * @param textStyle - style for text
- * @param renderItem - custom render function for item
- * @param keyExtractor - custom key extractor function
- * @param itemHeight - height of each item(default: 40)
- * @param itemDistanceMultipier - multiplier for distance between items(default: 0.285)
- * @param wheelHeightMultiplier - multiplier for wheel height(default: 2.6)
- */
 const Picker = <T,>({
   data,
   defaultItem,
