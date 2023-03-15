@@ -1,0 +1,25 @@
+name: Lint & TS
+
+on: pull_request
+
+permissions:
+  checks: write
+  contents: write
+
+jobs:
+  run-linters:
+    name: Run Linters and tsc
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out git repo
+        uses: actions/checkout@v2
+      
+      - name: Install deps
+        run: npm ci
+      
+      - name: Run Linters
+        run: npm run lint
+      
+      - name: Run tsc
+        run: npm run build

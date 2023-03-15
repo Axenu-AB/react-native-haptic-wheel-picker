@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "commonjs",
+      "jsx": "react",                         
+      "noEmit": true,
+      "strict": true,
+      "skipLibCheck": true,
+      "noImplicitAny": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "strictPropertyInitialization": true,
+      "noImplicitThis": true,
+      "alwaysStrict": true,   
+      "noUnusedLocals": true,                
+      "noUnusedParameters": true,           
+      "noImplicitReturns": true,             
+      "noFallthroughCasesInSwitch": true,
+      "moduleResolution": "node",           
+      "baseUrl": ".",
+      "allowSyntheticDefaultImports": true, 
+      "esModuleInterop": true   
+    },
+    "include": [
+      ".eslintrc.js",
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.js",
+      "**/*.jsx",
+    ]
+  }
+  
