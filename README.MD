@@ -2,7 +2,7 @@
 React native wheel picker for Android/IOS with haptic feedback and handles like a flatlist.
 
 
-![](example-text.png)  ![](example-image.png)
+![](https://github.com/Axenu-AB/react-native-haptic-wheel-picker/blob/main/example-text.png)  ![](https://github.com/Axenu-AB/react-native-haptic-wheel-picker/blob/main/example-image.png)
 
 
 ## Installation
