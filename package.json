@@ -1,6 +1,6 @@
 {
   "name": "@axenuab/react-native-haptic-wheel-picker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A react-native animated scroll wheel picker for IOS/Android",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,6 +18,10 @@
   ],
   "author": "Axenu-AB",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Axenu-AB/react-native-haptic-wheel-picker"
+  },
   "dependencies": {
   },
   "peerDependencies": {
