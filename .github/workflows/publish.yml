@@ -7,7 +7,7 @@ permissions:
 
 jobs:
   run-linters:
-    name: Run Linters and tsc
+    name: Publishing to NPM
     runs-on: ubuntu-latest
     
     steps:
